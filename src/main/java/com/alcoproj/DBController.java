@@ -56,7 +56,7 @@ public class DBController {
             Authorization(email, password.hashCode());
             UserCredentials userCredentials = userCredentialsService.getByEmail(email);
             userCredentials.setPassword(user.getPassword().hashCode());
-            userCredentials.setUser(user);
+            userCredentials.updateUser(user);
             userCredentialsService.edit(userCredentials);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (IllegalArgumentException e) {

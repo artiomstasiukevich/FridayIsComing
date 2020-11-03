@@ -23,6 +23,11 @@ public class UserCredentials {
     @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     User user;
+    public void updateUser(User user) {
+        this.user.setName(user.getName());
+        this.user.setAge(user.getAge());
+        this.user.setEmail(user.getEmail());
+    }
 
     public User getUser() {
         return user;
