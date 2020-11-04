@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class DBController {
-
     private final UserService userService;
     private final UserCredentialsService userCredentialsService;
 
@@ -35,11 +34,11 @@ public class DBController {
     @GetMapping(value = "/users")
     public ResponseEntity<?> read(@RequestParam(name = "email") String email,
                                   @RequestParam(name = "password") String password) {
-        try{
+        try {
             Authorization(email, password.hashCode());
             return new ResponseEntity<>(userCredentialsService.getByEmail(email).getUser(), HttpStatus.ACCEPTED);
-        }catch (IllegalArgumentException e) {
-            return  new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
@@ -50,7 +49,6 @@ public class DBController {
     public ResponseEntity<?> update(@RequestBody User user,
                                     @RequestParam(name = "email") String email,
                                     @RequestParam(name = "password") String password) {
-
         try {
             Authorization(email, password.hashCode());
             UserCredentials userCredentials = userCredentialsService.getByEmail(email);
@@ -59,7 +57,7 @@ public class DBController {
             userCredentialsService.edit(userCredentials);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (IllegalArgumentException e) {
-            return  new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         }
@@ -74,7 +72,7 @@ public class DBController {
                     userCredentialsService.getByEmail(email));
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (IllegalArgumentException e) {
-            return  new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         }
@@ -83,7 +81,7 @@ public class DBController {
     private void Authorization(String email, int hashPassword) {
         try {
             UserCredentials userCred = userCredentialsService.getByEmail(email);
-            if(hashPassword != userCred.getPassword()) {
+            if (hashPassword != userCred.getPassword()) {
                 throw new RuntimeException();
             }
         } catch (RuntimeException e) {

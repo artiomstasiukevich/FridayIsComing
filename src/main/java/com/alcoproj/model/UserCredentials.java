@@ -1,8 +1,7 @@
 package com.alcoproj.model;
 
-import org.hibernate.annotations.NaturalId;
-
 import javax.persistence.*;
+import org.hibernate.annotations.NaturalId;
 
 @Entity
 @Table(name = "usercredentials")

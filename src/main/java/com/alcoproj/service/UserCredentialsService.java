@@ -14,8 +14,7 @@ public class UserCredentialsService {
         this.userCredentialsDAO = userCredentialsDAO;
     }
 
-    UserCredentialsService() {
-    }
+    UserCredentialsService() {}
 
     public void add(UserCredentials userCredentials) {
         userCredentialsDAO.add(userCredentials);
@@ -33,5 +32,7 @@ public class UserCredentialsService {
         return userCredentialsDAO.getById(id);
     }
 
-    public UserCredentials getByEmail(String email) {return userCredentialsDAO.getByEmail(email);}
+    public UserCredentials getByEmail(String email) {
+        return userCredentialsDAO.getByEmail(email);
+    }
 }
