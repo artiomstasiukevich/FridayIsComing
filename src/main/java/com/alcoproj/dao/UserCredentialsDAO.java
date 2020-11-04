@@ -48,5 +48,4 @@ public class UserCredentialsDAO {
                 .using("email", email)
                 .load();
     }
-
 }
