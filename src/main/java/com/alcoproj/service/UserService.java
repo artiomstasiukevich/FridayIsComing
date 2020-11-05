@@ -1,34 +1,38 @@
 package com.alcoproj.service;
 
-import com.alcoproj.dao.UserDAO;
+import com.alcoproj.dao.UserRepository;
 import com.alcoproj.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
+
 @Service
+@AllArgsConstructor
 public class UserService {
-    private UserDAO userDAO = new UserDAO();
-
-    @Autowired
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
-
-    UserService() {}
+    private final UserRepository userRepository;
 
     public void add(User user) {
-        userDAO.add(user);
+        userRepository.save(user);
     }
 
     public void delete(User user) {
-        userDAO.delete(user);
+        userRepository.delete(user);
     }
 
+    @Transactional
     public void edit(User user) {
-        userDAO.edit(user);
+        if (userRepository.existsById(user.getId())) {
+            userRepository.save(user);
+        } else {
+            throw new EntityNotFoundException("You are a fag (edit)");
+        }
     }
+
 
     public User getById(int id) {
-        return userDAO.getById(id);
+        return userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("You are a fag (get)"));
     }
 }

@@ -1,6 +1,7 @@
 package com.alcoproj.model;
 
 import javax.persistence.*;
+
 import org.hibernate.annotations.NaturalId;
 
 @Entity
@@ -22,6 +23,7 @@ public class UserCredentials {
     @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     User user;
+
     public void updateUser(User user) {
         this.user.setName(user.getName());
         this.user.setAge(user.getAge());

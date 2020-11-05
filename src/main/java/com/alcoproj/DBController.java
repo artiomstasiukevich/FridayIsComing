@@ -3,7 +3,6 @@ package com.alcoproj;
 import com.alcoproj.model.User;
 import com.alcoproj.model.UserCredentials;
 import com.alcoproj.service.UserCredentialsService;
-import com.alcoproj.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,13 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class DBController {
-    private final UserService userService;
     private final UserCredentialsService userCredentialsService;
 
     @Autowired
-    public DBController(UserService userService,
-                        UserCredentialsService userCredentialsService) {
-        this.userService = userService;
+    public DBController(UserCredentialsService userCredentialsService) {
         this.userCredentialsService = userCredentialsService;
     }
 
@@ -35,7 +31,7 @@ public class DBController {
     public ResponseEntity<?> read(@RequestParam(name = "email") String email,
                                   @RequestParam(name = "password") String password) {
         try {
-            Authorization(email, password.hashCode());
+            authorization(email, password.hashCode());
             return new ResponseEntity<>(userCredentialsService.getByEmail(email).getUser(), HttpStatus.ACCEPTED);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -50,7 +46,7 @@ public class DBController {
                                     @RequestParam(name = "email") String email,
                                     @RequestParam(name = "password") String password) {
         try {
-            Authorization(email, password.hashCode());
+            authorization(email, password.hashCode());
             UserCredentials userCredentials = userCredentialsService.getByEmail(email);
             userCredentials.setPassword(user.getPassword().hashCode());
             userCredentials.updateUser(user);
@@ -67,7 +63,7 @@ public class DBController {
     public ResponseEntity<?> delete(@RequestParam(name = "email") String email,
                                     @RequestParam(name = "password") String password) {
         try {
-            Authorization(email, password.hashCode());
+            authorization(email, password.hashCode());
             userCredentialsService.delete(
                     userCredentialsService.getByEmail(email));
             return new ResponseEntity<>(HttpStatus.OK);
@@ -78,7 +74,7 @@ public class DBController {
         }
     }
 
-    private void Authorization(String email, int hashPassword) {
+    private void authorization(String email, int hashPassword) {
         try {
             UserCredentials userCred = userCredentialsService.getByEmail(email);
             if (hashPassword != userCred.getPassword()) {
