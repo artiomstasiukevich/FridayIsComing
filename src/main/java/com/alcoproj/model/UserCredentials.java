@@ -14,7 +14,7 @@ public class UserCredentials {
     private int id;
 
     @Column(name = "password")
-    private int password;
+    private String password;
 
     @NaturalId
     @Column(name = "email", nullable = false, unique = true)
@@ -54,11 +54,11 @@ public class UserCredentials {
         this.id = id;
     }
 
-    public int getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(int password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 }

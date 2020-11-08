@@ -7,6 +7,7 @@ import com.alcoproj.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,35 +24,45 @@ public class DBController {
 
     @PostMapping(value = "/users")
     public ResponseEntity<?> create(@RequestBody User user) {
-        UserCredentials userCredentials = new UserCredentials();
-        userCredentials.setEmail(user.getEmail());
-        userCredentials.setPassword(user.getPassword().hashCode());
-        userCredentials.setUser(user);
-        userCredentialsService.add(userCredentials);
+        userService.add(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/users/{id}")
-    public ResponseEntity<?> read(@PathVariable int id) {
-        return new ResponseEntity<>(userService.getById(id), HttpStatus.OK);
+    public ResponseEntity<?> read(@PathVariable int id,
+                                  @RequestHeader UsernamePasswordAuthenticationToken authenticationToken) {
+        UserCredentials userCredentials = userCredentialsService.getByEmail(userService.getById(id).getEmail());
+        if(userCredentials.getEmail().equals(authenticationToken.getName())
+                && userCredentials.getPassword().equals(authenticationToken.getCredentials())) {
+            return new ResponseEntity<>(userService.getById(id), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
 
     @PutMapping(value = "/users/{id}")
-    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody User user) {
-        String email = userService.getById(id).getEmail();
-        UserCredentials userCredentials = userCredentialsService.getByEmail(email);
-        userCredentials.setPassword(user.getPassword().hashCode());
-        userCredentials.updateUser(user);
-        userCredentialsService.edit(userCredentials);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody User user,
+                                    @RequestHeader UsernamePasswordAuthenticationToken authenticationToken) {
+        UserCredentials userCredentials = userCredentialsService.getByEmail(userService.getById(id).getEmail());
+        if(userCredentials.getEmail().equals(authenticationToken.getName())
+                && userCredentials.getPassword().equals(authenticationToken.getCredentials())) {
+            userService.edit(user);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
 
     @DeleteMapping(value = "/users/{id}")
-    public ResponseEntity<?> delete(@PathVariable int id) {
-        userCredentialsService.delete(
-                userCredentialsService.getByEmail(
-                        userService.getById(id).getEmail()));
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<?> delete(@PathVariable int id,
+                                    @RequestHeader UsernamePasswordAuthenticationToken authenticationToken) {
+        UserCredentials userCredentials = userCredentialsService.getByEmail(userService.getById(id).getEmail());
+        if(userCredentials.getEmail().equals(authenticationToken.getName())
+                && userCredentials.getPassword().equals(authenticationToken.getCredentials())) {
+            userCredentialsService.delete(
+                    userCredentialsService.getByEmail(
+                            userService.getById(id).getEmail()));
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
 
     @ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE,
