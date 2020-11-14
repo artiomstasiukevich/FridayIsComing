@@ -26,10 +26,8 @@ public class LoginController {
         userCredentials.setEmail(user.getEmail());
         userCredentials.setUser(user);
         userCredentialsService.add(userCredentials);
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userCredentials.getEmail(),
-                userCredentials.getPassword());
-        token.setAuthenticated(true);
-        return new ResponseEntity<>(token, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(new UsernamePasswordAuthenticationToken(userCredentials.getEmail(),
+                userCredentials.getPassword()), HttpStatus.ACCEPTED);
     }
 
     @PostMapping(value = "/login")

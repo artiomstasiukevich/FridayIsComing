@@ -31,38 +31,23 @@ public class DBController {
     @GetMapping(value = "/users/{id}")
     public ResponseEntity<?> read(@PathVariable int id,
                                   @RequestHeader UsernamePasswordAuthenticationToken authenticationToken) {
-        UserCredentials userCredentials = userCredentialsService.getByEmail(userService.getById(id).getEmail());
-        if(userCredentials.getEmail().equals(authenticationToken.getName())
-                && userCredentials.getPassword().equals(authenticationToken.getCredentials())) {
-            return new ResponseEntity<>(userService.getById(id), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        return new ResponseEntity<>(userService.getById(id), HttpStatus.OK);
     }
 
     @PutMapping(value = "/users/{id}")
     public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody User user,
                                     @RequestHeader UsernamePasswordAuthenticationToken authenticationToken) {
-        UserCredentials userCredentials = userCredentialsService.getByEmail(userService.getById(id).getEmail());
-        if(userCredentials.getEmail().equals(authenticationToken.getName())
-                && userCredentials.getPassword().equals(authenticationToken.getCredentials())) {
-            userService.edit(user);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        userService.edit(user);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/users/{id}")
     public ResponseEntity<?> delete(@PathVariable int id,
                                     @RequestHeader UsernamePasswordAuthenticationToken authenticationToken) {
-        UserCredentials userCredentials = userCredentialsService.getByEmail(userService.getById(id).getEmail());
-        if(userCredentials.getEmail().equals(authenticationToken.getName())
-                && userCredentials.getPassword().equals(authenticationToken.getCredentials())) {
-            userCredentialsService.delete(
-                    userCredentialsService.getByEmail(
-                            userService.getById(id).getEmail()));
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        userCredentialsService.delete(
+                userCredentialsService.getByEmail(
+                        userService.getById(id).getEmail()));
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE,

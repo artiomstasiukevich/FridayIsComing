@@ -38,7 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         FilterRegistrationBean<OncePerRequestFilter> registrationBean
                 = new FilterRegistrationBean<>();
         registrationBean.setFilter(filter);
-        registrationBean.addUrlPatterns("/users/*");
+        registrationBean.addUrlPatterns("/users**");
 
         return registrationBean;
     }
