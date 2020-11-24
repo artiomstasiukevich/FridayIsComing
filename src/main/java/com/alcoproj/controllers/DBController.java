@@ -29,21 +29,18 @@ public class DBController {
     }
 
     @GetMapping(value = "/users/{id}")
-    public ResponseEntity<?> read(@PathVariable int id,
-                                  @RequestHeader UsernamePasswordAuthenticationToken authenticationToken) {
+    public ResponseEntity<?> read(@PathVariable int id) {
         return new ResponseEntity<>(userService.getById(id), HttpStatus.OK);
     }
 
     @PutMapping(value = "/users/{id}")
-    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody User user,
-                                    @RequestHeader UsernamePasswordAuthenticationToken authenticationToken) {
+    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody User user) {
         userService.edit(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/users/{id}")
-    public ResponseEntity<?> delete(@PathVariable int id,
-                                    @RequestHeader UsernamePasswordAuthenticationToken authenticationToken) {
+    public ResponseEntity<?> delete(@PathVariable int id) {
         userCredentialsService.delete(
                 userCredentialsService.getByEmail(
                         userService.getById(id).getEmail()));
