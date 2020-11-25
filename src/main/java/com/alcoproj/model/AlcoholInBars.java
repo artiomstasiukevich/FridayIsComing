@@ -3,15 +3,14 @@ package com.alcoproj.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "bar")
-public class Bar {
-
+@Table(name = "alcoholinbars")
+public class AlcoholInBars {
     @Id
     @Column(name = "bar_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "alchol_id", nullable = false)
     private String name;
 
     public int getId() {
