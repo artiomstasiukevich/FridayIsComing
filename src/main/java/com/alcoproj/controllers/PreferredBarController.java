@@ -24,21 +24,18 @@ public class PreferredBarController {
     }
 
     @GetMapping(value = "/prefferedbar/{id}")
-    public ResponseEntity<?> read(@PathVariable int id,
-                                  @RequestHeader UsernamePasswordAuthenticationToken authenticationToken) {
+    public ResponseEntity<?> read(@PathVariable int id) {
         return new ResponseEntity<>(preferredBarService.getById(id), HttpStatus.OK);
     }
 
     @PutMapping(value = "/prefferedbar/{id}")
-    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody PreferredBar preferredBar,
-                                    @RequestHeader UsernamePasswordAuthenticationToken authenticationToken) {
+    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody PreferredBar preferredBar) {
         preferredBarService.edit(preferredBar);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/prefferedbar/{id}")
-    public ResponseEntity<?> delete(@PathVariable int id,
-                                    @RequestHeader UsernamePasswordAuthenticationToken authenticationToken) {
+    public ResponseEntity<?> delete(@PathVariable int id) {
         preferredBarService.delete(
                 preferredBarService.getById(id));
         return new ResponseEntity<>(HttpStatus.OK);

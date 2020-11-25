@@ -24,21 +24,18 @@ public class BelovedAlcoholController {
     }
 
     @GetMapping(value = "/belovedalcohol/{id}")
-    public ResponseEntity<?> read(@PathVariable int id,
-                                  @RequestHeader UsernamePasswordAuthenticationToken authenticationToken) {
+    public ResponseEntity<?> read(@PathVariable int id) {
         return new ResponseEntity<>(belovedAlcoholService.getById(id), HttpStatus.OK);
     }
 
     @PutMapping(value = "/belovedalcohol/{id}")
-    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody BelovedAlcohol belovedAlcohol,
-                                    @RequestHeader UsernamePasswordAuthenticationToken authenticationToken) {
+    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody BelovedAlcohol belovedAlcohol) {
         belovedAlcoholService.edit(belovedAlcohol);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/belovedalcohol/{id}")
-    public ResponseEntity<?> delete(@PathVariable int id,
-                                    @RequestHeader UsernamePasswordAuthenticationToken authenticationToken) {
+    public ResponseEntity<?> delete(@PathVariable int id) {
         belovedAlcoholService.delete(
                 belovedAlcoholService.getById(id));
         return new ResponseEntity<>(HttpStatus.OK);
