@@ -1,0 +1,40 @@
+com/alcoproj/service/UserService.java
+ com.alcoproj.service.UserService
+com/alcoproj/service/AlcTypeService.java
+ com.alcoproj.service.AlcTypeService
+com/alcoproj/controllers/AuthTokenFilter.java
+ com.alcoproj.controllers.AuthTokenFilter
+com/alcoproj/controllers/LoginController.java
+ com.alcoproj.controllers.LoginController
+com/alcoproj/service/UserCredentialsService.java
+ com.alcoproj.service.UserCredentialsService
+com/alcoproj/model/Alcohol.java
+ com.alcoproj.model.Alcohol
+com/alcoproj/App.java
+ com.alcoproj.App
+com/alcoproj/service/AlcoholService.java
+ com.alcoproj.service.AlcoholService
+com/alcoproj/dao/AlcTypeRepository.java
+ com.alcoproj.dao.AlcTypeRepository
+com/alcoproj/dao/AlcoholRepository.java
+ com.alcoproj.dao.AlcoholRepository
+com/alcoproj/controllers/PasswordEncoder.java
+ com.alcoproj.controllers.PasswordEncoder
+com/alcoproj/controllers/SecurityConfiguration.java
+ com.alcoproj.controllers.SecurityConfiguration
+com/alcoproj/controllers/DBController.java
+ com.alcoproj.controllers.DBController
+com/alcoproj/model/AlcType.java
+ com.alcoproj.model.AlcType
+com/alcoproj/model/UserCredentials.java
+ com.alcoproj.model.UserCredentials
+com/alcoproj/dao/UserCredentialsRepository.java
+ com.alcoproj.dao.UserCredentialsRepository
+com/alcoproj/model/User.java
+ com.alcoproj.model.User
+com/alcoproj/dao/UserRepository.java
+ com.alcoproj.dao.UserRepository
+com/alcoproj/controllers/AlcoholController.java
+ com.alcoproj.controllers.AlcoholController
+com/alcoproj/controllers/AlcTypeController.java
+ com.alcoproj.controllers.AlcTypeController
