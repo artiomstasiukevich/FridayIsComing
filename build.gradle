@@ -31,9 +31,12 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-dbcp
     compile group: 'org.apache.tomcat', name: 'tomcat-dbcp', version: '10.0.0-M9'
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
-   // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
-compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.3.5.RELEASE'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.3.5.RELEASE'
 // https://mvnrepository.com/artifact/org.mindrot/jbcrypt
     compile group: 'org.mindrot', name: 'jbcrypt', version: '0.4'
-
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.4.0'
+    // https://mvnrepository.com/artifact/org.liquibase/liquibase-core
+    compile group: 'org.liquibase', name: 'liquibase-core', version: '4.2.1'
 }

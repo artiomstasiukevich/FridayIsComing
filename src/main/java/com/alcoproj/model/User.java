@@ -20,6 +20,7 @@ public class User {
     @Column(name = "email")
     private String email;
 
+
     @Transient
     private String password;
 

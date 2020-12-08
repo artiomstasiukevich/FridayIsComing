@@ -7,10 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -19,6 +16,7 @@ public class LoginController {
     private final PasswordEncoder passwordEncoder;
     private final UserCredentialsService userCredentialsService;
 
+    @CrossOrigin
     @PostMapping(value = "/registration")
     ResponseEntity<?> register(@RequestBody User user) {
         UserCredentials userCredentials = new UserCredentials();
@@ -30,10 +28,11 @@ public class LoginController {
                 userCredentials.getPassword()), HttpStatus.ACCEPTED);
     }
 
+    @CrossOrigin
     @PostMapping(value = "/login")
     ResponseEntity<?> login(@RequestParam String email,
-                            @RequestParam String pasword) {
-        if(passwordEncoder.encode(pasword).equals(userCredentialsService.getByEmail(email).getPassword())) {
+                            @RequestParam String password) {
+        if(passwordEncoder.matches(password, userCredentialsService.getByEmail(email).getPassword())) {
             return new ResponseEntity<>(
                     new UsernamePasswordAuthenticationToken(userCredentialsService.getByEmail(email).getEmail(),
                     userCredentialsService.getByEmail(email).getPassword()), HttpStatus.ACCEPTED);

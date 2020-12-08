@@ -25,6 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .httpBasic();
     }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
@@ -34,7 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public FilterRegistrationBean<OncePerRequestFilter> loggingFilter(){
+    public FilterRegistrationBean<OncePerRequestFilter> loggingFilter() {
         FilterRegistrationBean<OncePerRequestFilter> registrationBean
                 = new FilterRegistrationBean<>();
         registrationBean.setFilter(filter);
