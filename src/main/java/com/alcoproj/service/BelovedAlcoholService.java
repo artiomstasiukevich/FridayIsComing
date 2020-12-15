@@ -1,18 +1,22 @@
 package com.alcoproj.service;
 
+import com.alcoproj.dao.AlcTypeRepository;
 import com.alcoproj.dao.BelovedAlcoholRepository;
+import com.alcoproj.model.AlcType;
 import com.alcoproj.model.BelovedAlcohol;
-import com.alcoproj.model.PreferredBar;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class BelovedAlcoholService {
     private final BelovedAlcoholRepository belovedAlcoholService;
+    private final AlcTypeRepository alcTypeRepository;
 
     public void add(BelovedAlcohol belovedAlcohol) {
         belovedAlcoholService.save(belovedAlcohol);
@@ -35,5 +39,14 @@ public class BelovedAlcoholService {
     public BelovedAlcohol getById(int id) {
         return belovedAlcoholService.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("You are a fag (get)"));
+    }
+
+    public List<AlcType> getAllBelovedAlcTypeById(int user_id) {
+        List<BelovedAlcohol> belovedAlcoholList = belovedAlcoholService.findAllByUserId(user_id);
+        List<Integer> flex = new ArrayList<>();
+        for (BelovedAlcohol belovedAlcohol : belovedAlcoholList) {
+            flex.add(belovedAlcohol.getAlcoType());
+        }
+        return alcTypeRepository.findAllById(flex);
     }
 }
