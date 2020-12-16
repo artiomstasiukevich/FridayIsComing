@@ -13,24 +13,24 @@ public class AlcoholInBarsController {
     private final AlcoholInBarsService alcoholInBarsService;
 
 
-    @PostMapping(value = "/bars")
+    @PostMapping(value = "/bars1")
     public ResponseEntity<?> create(@RequestBody AlcoholInBars alcoholInBars) {
         alcoholInBarsService.add(alcoholInBars);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/bars/{id}")
+    @GetMapping(value = "/bars1/{id}")
     public ResponseEntity<?> read(@PathVariable int id) {
         return new ResponseEntity<>(alcoholInBarsService.getById(id), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/bars/{id}")
+    @PutMapping(value = "/bars1/{id}")
     public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody AlcoholInBars alcoholInBars) {
         alcoholInBarsService.edit(alcoholInBars);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/bars/{id}")
+    @DeleteMapping(value = "/bars1/{id}")
     public ResponseEntity<?> delete(@PathVariable int id) {
         alcoholInBarsService.delete(alcoholInBarsService.getById(id));
         return new ResponseEntity<>(HttpStatus.OK);

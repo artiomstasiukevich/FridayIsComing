@@ -17,24 +17,24 @@ public class PreferredBarController {
         this.preferredBarService = preferredBarService;
     }
 
-    @PostMapping(value = "/prefferedbar")
+    @PostMapping(value = "/preferredbar")
     public ResponseEntity<?> create(@RequestBody PreferredBar preferredBar) {
         preferredBarService.add(preferredBar);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/prefferedbar/{id}")
+    @GetMapping(value = "/preferredbar/{id}")
     public ResponseEntity<?> read(@PathVariable int id) {
         return new ResponseEntity<>(preferredBarService.getById(id), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/prefferedbar/{id}")
+    @PutMapping(value = "/preferredbar/{id}")
     public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody PreferredBar preferredBar) {
         preferredBarService.edit(preferredBar);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/prefferedbar/{id}")
+    @DeleteMapping(value = "/preferredbar/{id}")
     public ResponseEntity<?> delete(@PathVariable int id) {
         preferredBarService.delete(
                 preferredBarService.getById(id));
